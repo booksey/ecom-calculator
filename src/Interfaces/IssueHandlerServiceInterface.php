@@ -5,7 +5,7 @@ namespace App\Interfaces;
 use App\Collections\IssueCollection;
 use App\Entity\Issue;
 
-interface IssueServiceInterface
+interface IssueHandlerServiceInterface
 {
     public function getAll(): IssueCollection;
     public function add(Issue $issue): void;

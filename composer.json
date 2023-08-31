@@ -44,6 +44,7 @@
         "php-di/php-di": "^7.0",
         "psr/container": "^1.1",
         "slim/slim": "^4.12",
+        "symfony/console": "^6.3",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {

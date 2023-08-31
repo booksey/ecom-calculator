@@ -4,9 +4,9 @@ namespace App\Services;
 
 use App\Entity\Issue;
 use App\Collections\IssueCollection;
-use App\Interfaces\IssueServiceInterface;
+use App\Interfaces\IssueHandlerServiceInterface;
 
-class IssueHandlerService implements IssueServiceInterface
+class IssueHandlerService implements IssueHandlerServiceInterface
 {
     public function getAll(): IssueCollection
     {

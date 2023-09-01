@@ -6,6 +6,7 @@ use App\Entity\Issue;
 use App\Collections\IssueCollection;
 use App\Interfaces\IssueFactoryInterface;
 use App\Interfaces\IssueHandlerServiceInterface;
+use DateInterval;
 use DateTime;
 
 class IssueHandlerService implements IssueHandlerServiceInterface
@@ -49,6 +50,11 @@ class IssueHandlerService implements IssueHandlerServiceInterface
 
     public function calculateDueDate(Issue $issue): Issue
     {
-        return $issue->setDueDate(new DateTime('now'));
+        $createdAt = $issue->getCreated();
+        $estimatedHours = $issue->getEstimatedHours();
+        $daysToResolve = ceil($estimatedHours / 8);
+        $dueDate = $createdAt->modify("+" . $daysToResolve . " weekdays");
+
+        return $issue->setDueDate($dueDate);
     }
 }

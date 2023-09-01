@@ -33,6 +33,8 @@ class IssueFactory implements IssueFactoryInterface
         Assert::stringNotEmpty($issuer, 'Bejelentő neve kötelező!');
         Assert::stringNotEmpty($text, 'Bejelentés szövege kötelező!');
         Assert::integerish($estimatedHours, 'Átfutási idő kötelező!');
+        Assert::greaterThan($estimatedHours, 0, 'Érvénytelen átfutási idő' . $estimatedHours);
+
         return new Issue($issuer, $text, intval($estimatedHours), $created, $dueDate);
     }
 }

@@ -51,10 +51,10 @@ class IssueHandlerService implements IssueHandlerServiceInterface
     public function calculateDueDate(Issue $issue): Issue
     {
         $createdAt = $issue->getCreated();
+        $cloneCreatedAt = clone $createdAt;
         $estimatedHours = $issue->getEstimatedHours();
         $daysToResolve = ceil($estimatedHours / 8);
-        $dueDate = $createdAt->modify("+" . $daysToResolve . " weekdays");
-
+        $dueDate = $cloneCreatedAt->modify("+" . $daysToResolve . " weekdays");
         return $issue->setDueDate($dueDate);
     }
 }

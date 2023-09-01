@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Interfaces\IssueHandlerServiceInterface;
+use DateTime;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
@@ -36,13 +37,13 @@ final class AddIssueCommand extends Command
 
         $issuer = $questionHelper->ask($input, $output, $issuerQuestion);
         $text = $questionHelper->ask($input, $output, $textQuestion);
-        /** @var string $estiamtedHours */
-        $estiamtedHours = $questionHelper->ask($input, $output, $eHoursQuestion);
+        /** @var string $estimatedHours */
+        $estimatedHours = $questionHelper->ask($input, $output, $eHoursQuestion);
 
         $issue = [
             'issuer' => $issuer,
             'text' => $text,
-            'estimatedHours' => intval($estiamtedHours),
+            'estimatedHours' => intval($estimatedHours),
         ];
 
         /** @var string $issueJson */
@@ -50,7 +51,11 @@ final class AddIssueCommand extends Command
         $issue = $this->issueHandler->create($issueJson);
         $this->issueHandler->add($issue);
 
+        /** @var DateTime $dueDate */
+        $dueDate = $issue->getDueDate();
+        $output->writeln('');
         $output->writeln(sprintf('<info>Bejelentés létrehozva</info>'));
+        $output->writeln(sprintf('<comment>Esedékesség: </comment>' . $dueDate->format('Y-m-d H:i:s')));
 
         return 0;
     }

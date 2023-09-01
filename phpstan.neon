@@ -17,3 +17,5 @@ parameters:
     		maximumNumberOfProcesses: 2
     tmpDir: '%currentWorkingDirectory%/phpStanTmp'
     reportUnmatchedIgnoredErrors: false
+    excludePaths:
+        - config

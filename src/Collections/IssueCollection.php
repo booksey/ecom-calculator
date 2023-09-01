@@ -6,10 +6,11 @@ namespace App\Collections;
 
 use App\Entity\Issue;
 use ArrayIterator;
+use Countable;
 use IteratorAggregate;
 use Traversable;
 
-final class IssueCollection implements IteratorAggregate
+final class IssueCollection implements IteratorAggregate, Countable
 {
     public array $issues;
 
@@ -26,5 +27,10 @@ final class IssueCollection implements IteratorAggregate
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->issues);
+    }
+
+    public function count(): int
+    {
+        return count($this->issues);
     }
 }

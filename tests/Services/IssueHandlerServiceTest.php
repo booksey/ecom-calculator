@@ -4,26 +4,27 @@ declare(strict_types=1);
 
 namespace App\Test\Services;
 
+use App\Collections\IssueCollection;
 use App\Entity\Issue;
+use App\Interfaces\IssueFactoryInterface;
 use App\Interfaces\IssueHandlerServiceInterface;
 use App\Services\IssueHandlerService;
 use PHPUnit\Framework\TestCase;
 
-class CreateActionTest extends TestCase
+class IssueHandlerServiceTest extends TestCase
 {
     private readonly IssueHandlerServiceInterface $issueHandler;
 
     protected function setUp(): void
     {
-        $this->issueHandler = new IssueHandlerService();
+        $issueFactory = $this->createMock(IssueFactoryInterface::class);
+        $this->issueHandler = new IssueHandlerService($issueFactory);
     }
 
     public function testGetAll(): void
     {
-    }
-
-    public function testAdd(Issue $issue): void
-    {
+        $list = $this->issueHandler->getAll();
+        $this->assertInstanceOf(IssueCollection::class, $list);
     }
 
     /**

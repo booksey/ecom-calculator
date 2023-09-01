@@ -7,3 +7,4 @@ vendor/
 .phpunit.result.cache
 memory*
 coverage.html/
+issues.json

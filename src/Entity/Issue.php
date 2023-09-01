@@ -3,18 +3,28 @@
 namespace App\Entity;
 
 use DateTime;
+use JsonSerializable;
 
-class Issue
+class Issue implements JsonSerializable
 {
-    private DateTime $dueDate;
-    private readonly DateTime $created;
-
     public function __construct(
         private string $issuer,
         private string $text,
         private int $estimatedHours,
+        private readonly DateTime $created,
+        private ?DateTime $dueDate
     ) {
-        $this->created = new DateTime('now');
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'issuer' => $this->issuer,
+            'text' => $this->text,
+            'estimatedHours' => $this->estimatedHours,
+            'dueDate' => $this->dueDate?->format('Y-m-d H:i:s'),
+            'created' => $this->created->format('Y-m-d H:i:s'),
+        ];
     }
 
     public function getIssuer(): string
@@ -53,7 +63,7 @@ class Issue
         return $this;
     }
 
-    public function getDueDate(): DateTime
+    public function getDueDate(): ?DateTime
     {
         return $this->dueDate;
     }

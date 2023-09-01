@@ -1,5 +1,7 @@
 # eCom calculator
 
+### Requirements:
+PHP >= 8.2.*
 ## To install on Linux:
 ```
 $ git clone https://github.com/booksey/ecom-calculator.git ecom-calculator
